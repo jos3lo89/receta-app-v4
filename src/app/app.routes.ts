@@ -2,12 +2,21 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: 'home',
-    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
+    path: 'recetas',
+    loadChildren: () => import('./recetas/routes/recetas.routes'),
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/routes/auth.routes'),
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'recetas/home',
+    pathMatch: 'full',
+  },
+  {
+    path: '**',
+    redirectTo: 'recetas/home',
     pathMatch: 'full',
   },
 ];
