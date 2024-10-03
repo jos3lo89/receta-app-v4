@@ -1,6 +1,9 @@
 <ion-tab-bar>
+  @for(data of mainNavigationRoutes ; track $index) {
+  <ion-tab-button (click)="setRouter(data.path)">
+    <ion-icon name="{{ data.icon }}"></ion-icon>
+    {{ data.name }}
+  </ion-tab-button>
 
-
-
-
+  }
 </ion-tab-bar>

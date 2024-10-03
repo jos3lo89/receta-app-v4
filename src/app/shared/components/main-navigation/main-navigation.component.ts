@@ -1,17 +1,28 @@
-import { Component, OnInit } from '@angular/core';
-import { IonTabBar } from '@ionic/angular/standalone';
+import { Component, inject, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { IonTabBar, IonTabButton, IonIcon } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { homeOutline, albumsOutline, search, person } from 'ionicons/icons';
 
 @Component({
   selector: 'app-main-navigation',
   templateUrl: './main-navigation.component.html',
   styleUrls: ['./main-navigation.component.scss'],
   standalone: true,
-  imports: [IonTabBar],
+  imports: [IonIcon, IonTabButton, IonTabBar],
 })
 export class MainNavigationComponent implements OnInit {
-  constructor() {}
+  private _router = inject(Router);
+
+  constructor() {
+    addIcons({ homeOutline, albumsOutline, search, person });
+  }
 
   ngOnInit() {}
+
+  setRouter(route: string) {
+    this._router.navigateByUrl(route);
+  }
 
   mainNavigationRoutes = [
     {
