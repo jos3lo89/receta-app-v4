@@ -17,10 +17,21 @@ export class StorageService {
   }
 
   async set(key: string, value: any) {
-    await this._storage?.set(key, value);
+    const result = await this._storage?.set(key, value);
+    console.log(result);
   }
 
   async get(key: string) {
-    return await this._storage?.get(key);
+    const value = await this._storage?.get(key);
+    console.log(value);
+    return value;
+  }
+
+  async remove(key: string) {
+    const value = await this._storage?.remove(key);
+  }
+
+  async clear() {
+    const value = await this._storage?.clear();
   }
 }

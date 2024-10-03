@@ -19,6 +19,7 @@ import { getStorage, provideStorage } from '@angular/fire/storage';
 import { environment } from './environments/environment.prod';
 import { importProvidersFrom } from '@angular/core';
 import { IonicStorageModule } from '@ionic/storage-angular';
+import { Drivers } from '@ionic/storage';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -29,6 +30,11 @@ bootstrapApplication(AppComponent, {
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideStorage(() => getStorage()),
-    importProvidersFrom(IonicStorageModule.forRoot()),
+    importProvidersFrom(
+      IonicStorageModule.forRoot({
+        name: 'jos3lodb',
+        driverOrder: [Drivers.IndexedDB],
+      })
+    ),
   ],
 });

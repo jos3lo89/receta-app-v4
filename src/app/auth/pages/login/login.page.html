@@ -5,9 +5,10 @@
     </ion-card-header>
 
     <ion-card-content>
-      <form>
+      <form [formGroup]="form" (ngSubmit)="loginEmailAndPassword()">
         <ion-list>
           <ion-input
+            formControlName="email"
             label="Correo Electronico"
             label-placement="floating"
             fill="solid"
@@ -16,6 +17,7 @@
           ></ion-input>
           <br />
           <ion-input
+            formControlName="password"
             label="Contraseña"
             label-placement="floating"
             fill="solid"
@@ -23,9 +25,34 @@
             type="password"
           ></ion-input>
           <br /><br />
-          <ion-button expand="full"> Ingresar </ion-button>
+
+          <ion-button
+            expand="full"
+            type="submit"
+            [disabled]="isloadingSubmitBtn"
+          >
+            @if (isloadingSubmitBtn) {
+
+            <ion-spinner name="crescent"></ion-spinner>
+            } @else { Ingresar }
+          </ion-button>
+
           <br />
+
+          @if (isLoadingGoogleBtn) {
+          <ion-button
+            size="small"
+            color="primary"
+            expand="block"
+            shape="round"
+            fill="clear"
+            class="btnLoadingGoogle"
+          >
+            <ion-spinner name="crescent"></ion-spinner>
+          </ion-button>
+          } @else {
           <app-signin-with-google (clickMe)="login()" />
+          }
         </ion-list>
       </form>
     </ion-card-content>
