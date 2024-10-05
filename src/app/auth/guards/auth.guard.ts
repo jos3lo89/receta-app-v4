@@ -1,38 +1,24 @@
-import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
-import { from, map } from 'rxjs';
+import { inject, Injectable } from '@angular/core';
+import { Router, CanActivate } from '@angular/router';
 import { StorageService } from 'src/app/shared/services/storage.service';
+import { CurrentUser } from 'src/app/types/recetas-app';
 
-export const privateGuard = (): CanActivateFn => {
-  return () => {
-    const router = inject(Router);
-    const storageService = inject(StorageService);
+@Injectable({
+  providedIn: 'root',
+})
+export class AuthGuard implements CanActivate {
+  private _storage = inject(StorageService);
+  private _router = inject(Router);
 
-    return from(storageService.get('currentUser')).pipe(
-      map((token) => {
-        if (!token) {
-          router.navigateByUrl('/auth/login');
-          return false;
-        }
-        return true;
-      })
-    );
-  };
-};
+  async canActivate() {
+    await this._storage.init();
+    const currentUser: CurrentUser = await this._storage.get('currentUser');
 
-export const publicGuard = (): CanActivateFn => {
-  return () => {
-    const router = inject(Router);
-    const storageService = inject(StorageService);
-
-    return from(storageService.get('currentUser')).pipe(
-      map((token) => {
-        if (token) {
-          router.navigateByUrl('/pages/home');
-          return false;
-        }
-        return true;
-      })
-    );
-  };
-};
+    if (currentUser) {
+      return true;
+    } else {
+      this._router.navigateByUrl('/auth/login');
+      return false;
+    }
+  }
+}

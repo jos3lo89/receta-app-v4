@@ -20,6 +20,7 @@ import { MainHeaderComponent } from '../shared/components/main-header/main-heade
     MainNavigationComponent,
     MainHeaderComponent,
   ],
+  selector: 'app-layout-main',
   template: `
     <ion-header>
       <app-main-header />
@@ -31,7 +32,7 @@ import { MainHeaderComponent } from '../shared/components/main-header/main-heade
 
     <ion-footer>
       <!-- <ion-toolbar> -->
-        <app-main-navigation />
+      <app-main-navigation />
       <!-- </ion-toolbar> -->
     </ion-footer>
   `,

@@ -9,6 +9,9 @@ import {
 } from '@ionic/angular/standalone';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { CurrentUser } from 'src/app/types/recetas-app';
+import { LogOutComponent } from '../../../auth/components/log-out/log-out.component';
+import { AuthService } from 'src/app/auth/service/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -22,10 +25,13 @@ import { CurrentUser } from 'src/app/types/recetas-app';
     IonToolbar,
     CommonModule,
     FormsModule,
+    LogOutComponent,
   ],
 })
-export class ProfilePage implements OnInit {
+export default class ProfilePage implements OnInit {
   private _storeService = inject(StorageService);
+  private _authService = inject(AuthService);
+  private _router = inject(Router);
 
   currentUser: CurrentUser | null = null;
 
@@ -33,6 +39,14 @@ export class ProfilePage implements OnInit {
 
   async ngOnInit() {
     this.currentUser = await this._storeService.get('currentUser');
-    console.log('---->>>>', this.currentUser);
+  }
+
+  async logOut() {
+    const result = await this._authService.logOut();
+    if (!result) {
+      console.log('Fallo al cerrar sesión');
+    }
+
+    this._router.navigateByUrl('/recetas/home');
   }
 }

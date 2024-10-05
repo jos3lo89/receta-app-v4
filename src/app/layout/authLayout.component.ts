@@ -6,6 +6,7 @@ import {
   IonContent,
   IonToolbar,
   IonBackButton,
+  IonButtons,
 } from '@ionic/angular/standalone';
 import { NavigationComponent } from '../auth/components/navigation/navigation.component';
 
@@ -19,11 +20,14 @@ import { NavigationComponent } from '../auth/components/navigation/navigation.co
     IonContent,
     IonToolbar,
     NavigationComponent,
+    IonButtons,
   ],
   template: `
     <ion-header>
       <ion-toolbar>
-        <ion-back-button />
+        <ion-buttons slot="start">
+          <ion-back-button>atras</ion-back-button>
+        </ion-buttons>
       </ion-toolbar>
     </ion-header>
 

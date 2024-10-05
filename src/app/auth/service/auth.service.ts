@@ -6,10 +6,13 @@ import {
   signInWithEmailAndPassword,
   UserCredential,
   createUserWithEmailAndPassword,
+  authState,
 } from '@angular/fire/auth';
 import { doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
 import { GoogleAuth, User } from '@codetrix-studio/capacitor-google-auth';
 import { isPlatform } from '@ionic/angular';
+import { Observable } from 'rxjs';
+import { StorageService } from 'src/app/shared/services/storage.service';
 import { CurrentUser } from 'src/app/types/recetas-app';
 
 export interface UserRegisterI {
@@ -33,6 +36,7 @@ export interface userDocDataI {
 export class AuthService {
   private _auth = inject(Auth);
   private _firestore = inject(Firestore);
+  private _storage = inject(StorageService);
 
   userCap: User | null = null;
   userGoogle: UserCredential | null = null;
@@ -100,9 +104,6 @@ export class AuthService {
 
     const userDocData = await getDoc(userDocRef);
 
-    // console.log('user google', this.userGoogle.user);
-    // console.log('userDocData', userDocData.data());
-
     const data = userDocData.data() as userDocDataI;
 
     const setData: CurrentUser = {
@@ -117,6 +118,16 @@ export class AuthService {
     };
 
     return setData;
+  }
+
+  async logOut() {
+    try {
+      await this._auth.signOut();
+      await this._storage.remove('currentUser');
+      return true;
+    } catch (error) {
+      return false;
+    }
   }
 
   init() {

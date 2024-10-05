@@ -1,27 +1,45 @@
-import { Component } from "@angular/core";
-import {IonHeader, IonFooter, IonContent, IonRouterOutlet} from "@ionic/angular/standalone"
-
+import { Component } from '@angular/core';
+import {
+  IonHeader,
+  IonFooter,
+  IonContent,
+  IonRouterOutlet,
+  IonToolbar,
+  IonBackButton,
+  IonButtons,
+} from '@ionic/angular/standalone';
+import { NavigationUserComponent } from '../user/components/navigation-user/navigation-user.component';
 
 @Component({
-  imports: [IonHeader, IonFooter, IonContent, IonRouterOutlet],
+  imports: [
+    IonHeader,
+    IonFooter,
+    IonContent,
+    IonRouterOutlet,
+    IonToolbar,
+    IonBackButton,
+    NavigationUserComponent,
+    IonButtons,
+  ],
   standalone: true,
+  selector: 'app-layout-user',
   template: `
+    <ion-header>
+      <ion-toolbar>
+        <ion-buttons slot="start">
+          <ion-back-button>atras</ion-back-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
 
-  <ion-header>
+    <ion-content>
+      <ion-router-outlet />
+    </ion-content>
 
-  </ion-header>
-
-  <ion-content>
-<ion-router-outlet />
-  </ion-content>
-
-  <ion-footer>
-
-
-  </ion-footer>
-
+    <ion-footer>
+      <app-navigation-user />
+    </ion-footer>
   `,
-  styles: ``
+  styles: ``,
 })
-
 export default class UserLayoutComponent {}

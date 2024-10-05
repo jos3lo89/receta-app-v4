@@ -1,0 +1,9 @@
+<ion-tab-bar slot="bottom">
+  @for (route of navigationRoutes; track $index) {
+
+  <ion-tab-button [routerLink]="[route.path]">
+    <ion-icon name="{{ route.icon }}"></ion-icon>
+    {{ route.name }}
+  </ion-tab-button>
+  }
+</ion-tab-bar>
