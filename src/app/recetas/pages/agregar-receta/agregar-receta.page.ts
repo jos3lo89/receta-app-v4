@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {
   FormArray,
   FormBuilder,
@@ -13,54 +12,69 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
-  IonText,
   IonItem,
-  IonButton,
-  IonIcon,
   IonLabel,
   IonList,
+  IonButton,
+  IonInput,
   IonSelectOption,
+  IonSelect,
+  IonText,
+  IonIcon,
+  IonCard,
+  IonCardHeader,
+  IonCardContent,
+  IonCardTitle,
+  IonCardSubtitle,
+  IonTextarea,
 } from '@ionic/angular/standalone';
-import { ToastService } from 'src/app/shared/services/toast.service';
-import { addIcons } from 'ionicons';
-import { add } from 'ionicons/icons';
 import { CamaraModalComponent } from './components/camara-modal/camara-modal.component';
-import { RecetaService } from '../../services/receta.service';
+import { addIcons } from 'ionicons';
+import { add, closeCircleOutline } from 'ionicons/icons';
+import { RecetaService } from 'src/app/recetas/services/receta.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
-  selector: 'app-agregar-receta',
+  selector: 'app-agegar-receta',
   templateUrl: './agregar-receta.page.html',
   styleUrls: ['./agregar-receta.page.scss'],
   standalone: true,
   imports: [
+    IonTextarea,
+    IonCardSubtitle,
+    IonCardTitle,
+    IonCardContent,
+    IonCardHeader,
+    IonCard,
+    IonIcon,
+    IonText,
+    IonInput,
+    IonButton,
     IonList,
     IonLabel,
-    IonIcon,
-    IonButton,
     IonItem,
-    IonText,
     IonContent,
     IonHeader,
     IonTitle,
     IonToolbar,
-    CommonModule,
     FormsModule,
-    ReactiveFormsModule,
     IonSelectOption,
+    ReactiveFormsModule,
+    IonSelect,
     CamaraModalComponent,
   ],
 })
-export class AgregarRecetaPage implements OnInit {
+export default class AgegarRecetaPage implements OnInit {
   recipeForm: FormGroup;
   isModalOpen = false;
   capturedImages: string[] = [];
 
   private _formBuilder = inject(FormBuilder);
-  private _recetaService = inject(RecetaService);
+  private _recetasDataService = inject(RecetaService);
   private _toast = inject(ToastService);
 
   constructor() {
-    addIcons({ add });
+    addIcons({ add, closeCircleOutline });
 
     this.recipeForm = this._formBuilder.group({
       nombre: ['', Validators.required],
@@ -70,7 +84,7 @@ export class AgregarRecetaPage implements OnInit {
       preparacion: this._formBuilder.array([this._formBuilder.control('')]),
       region: ['', Validators.required],
       tipo: ['', Validators.required],
-      porciones: [1, Validators.required],
+      porciones: [null, Validators.required],
       imagenes: this._formBuilder.array([]),
       infoNutricional: this._formBuilder.group({
         carbohidratos: ['', Validators.required],
@@ -101,9 +115,16 @@ export class AgregarRecetaPage implements OnInit {
   addIngrediente() {
     this.ingredientes.push(this._formBuilder.control(''));
   }
+  removeIngrediente(index: number) {
+    this.ingredientes.removeAt(index);
+  }
 
   addPreparacion() {
     this.preparacion.push(this._formBuilder.control(''));
+  }
+
+  removePreparacion(index: number) {
+    this.preparacion.removeAt(index);
   }
 
   capturedImage: string | undefined;
@@ -127,7 +148,7 @@ export class AgregarRecetaPage implements OnInit {
     if (this.recipeForm.valid) {
       this.isLoading = true;
 
-      const success = await this._recetaService.subirReceta(
+      const success = await this._recetasDataService.subirReceta(
         this.recipeForm.value
       );
 
@@ -157,5 +178,10 @@ export class AgregarRecetaPage implements OnInit {
     this.addIngrediente();
     this.addPreparacion();
     this.capturedImages = [];
+  }
+
+  removeImg(index: number) {
+    this.capturedImages.splice(index, 1);
+    this.imagenes.removeAt(index);
   }
 }

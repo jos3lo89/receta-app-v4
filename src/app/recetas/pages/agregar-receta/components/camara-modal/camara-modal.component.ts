@@ -12,7 +12,6 @@ import {
   IonButtons,
   IonContent,
 } from '@ionic/angular/standalone';
-
 @Component({
   selector: 'app-camara-modal',
   templateUrl: './camara-modal.component.html',
@@ -29,7 +28,8 @@ import {
     IonModal,
   ],
 })
-export class CamaraModalComponent implements OnInit {
+export class CamaraModalComponent  implements OnInit {
+
   ngOnInit(): void {}
 
   constructor() {
