@@ -1,0 +1,14 @@
+<ion-list class="horizontal-list">
+  <ion-grid>
+    @for (card of regionesData; track $index) {
+    <div class="box-region" >
+      <ion-card (click)="redirectCard(card.url, card.region)">
+        <img alt="img card" [src]="card.img" />
+        <ion-card-header class="text-box">
+          <ion-card-title>{{ card.region }}</ion-card-title>
+        </ion-card-header>
+      </ion-card>
+    </div>
+    }
+  </ion-grid>
+</ion-list>

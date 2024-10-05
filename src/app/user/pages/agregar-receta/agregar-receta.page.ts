@@ -78,7 +78,7 @@ export default class AgegarRecetaPage implements OnInit {
 
     this.recipeForm = this._formBuilder.group({
       nombre: ['', Validators.required],
-      hora: ['', Validators.required],
+      // hora: ['', Validators.required],
       minutos: ['', Validators.required],
       ingredientes: this._formBuilder.array([this._formBuilder.control('')]),
       preparacion: this._formBuilder.array([this._formBuilder.control('')]),
@@ -86,16 +86,16 @@ export default class AgegarRecetaPage implements OnInit {
       tipo: ['', Validators.required],
       porciones: [null, Validators.required],
       imagenes: this._formBuilder.array([]),
-      infoNutricional: this._formBuilder.group({
-        carbohidratos: ['', Validators.required],
-        energia: ['', Validators.required],
-        grasas: ['', Validators.required],
-        fibra: ['', Validators.required],
-        proteina: ['', Validators.required],
-        grasasSaturadas: ['', Validators.required],
-        sodio: ['', Validators.required],
-        azucares: ['', Validators.required],
-      }),
+      // infoNutricional: this._formBuilder.group({
+      //   carbohidratos: ['', Validators.required],
+      //   energia: ['', Validators.required],
+      //   grasas: ['', Validators.required],
+      //   fibra: ['', Validators.required],
+      //   proteina: ['', Validators.required],
+      //   grasasSaturadas: ['', Validators.required],
+      //   sodio: ['', Validators.required],
+      //   azucares: ['', Validators.required],
+      // }),
     });
   }
   ngOnInit() {}

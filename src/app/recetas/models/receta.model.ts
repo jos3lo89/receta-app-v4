@@ -1,6 +1,6 @@
 export interface Receta {
   nombre: string;
-  hora: number;
+  // hora: number;
   minutos: number;
   ingredientes: string[];
   preparacion: string[];
@@ -8,14 +8,14 @@ export interface Receta {
   tipo: string;
   porciones: number;
   imagenes: string[];
-  infoNutricional: {
-    energia: number;
-    carbohidratos: number;
-    grasas: number;
-    fibra: number;
-    proteina: number;
-    grasasSaturadas: number;
-    sodio: number;
-    azucares: number;
-  };
+  // infoNutricional: {
+  //   energia: number;
+  //   carbohidratos: number;
+  //   grasas: number;
+  //   fibra: number;
+  //   proteina: number;
+  //   grasasSaturadas: number;
+  //   sodio: number;
+  //   azucares: number;
+  // };
 }

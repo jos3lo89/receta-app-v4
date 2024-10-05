@@ -1,0 +1,20 @@
+.horizontal-list {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  .horizontal-list::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .horizontal-list .box-top10peru {
+    display: inline-block;
+    width: auto;
+    max-width: 250px;
+  }
+  
+  .text-box {
+    text-align: center;
+  }
+  

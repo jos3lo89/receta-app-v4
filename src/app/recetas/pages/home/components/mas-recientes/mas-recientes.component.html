@@ -1,0 +1,14 @@
+<ion-grid>
+  <ion-row>
+    @for (plato of recientesRecetas; track $index) {
+    <ion-col size="6" size-sm="4" size-md="3" size-lg="2">
+      <ion-card>
+        <ion-img [src]="plato.imagen" alt="{{ plato.nombre }}"></ion-img>
+        <ion-card-header>
+          <ion-card-title>{{ plato.nombre }}</ion-card-title>
+        </ion-card-header>
+      </ion-card>
+    </ion-col>
+    }
+  </ion-row>
+</ion-grid>

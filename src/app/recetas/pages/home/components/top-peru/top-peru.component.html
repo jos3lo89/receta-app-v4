@@ -1,0 +1,15 @@
+<ion-list class="horizontal-list">
+  <ion-grid>
+    @for (card of top10data; track $index) {
+      <div class="box-top10peru" >
+
+        <ion-card>
+          <img alt="img card" [src]="card.imagen" />
+          <ion-card-header class="text-box">
+            <ion-card-title>{{ card.nombre }}</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </div>
+    }
+  </ion-grid>
+</ion-list>
