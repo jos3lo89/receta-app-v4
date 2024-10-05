@@ -1,0 +1,29 @@
+.text-box-form {
+  text-align: center;
+}
+
+.ingrediente-box {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.pasos-box {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.input-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.box-btn-img {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+// .box-btn-img div {
+//     display: flex;
+// }

@@ -1,18 +1,38 @@
 import { inject, Injectable } from '@angular/core';
 import { addDoc, collection, Firestore } from '@angular/fire/firestore';
-import { getDownloadURL, ref, Storage, uploadString } from '@angular/fire/storage';
+import {
+  getDownloadURL,
+  ref,
+  Storage,
+  uploadString,
+} from '@angular/fire/storage';
 import { Receta } from '../models/receta.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RecetaService {
-
-
   private _storage = inject(Storage);
   private _firestore = inject(Firestore);
 
   constructor() {}
+
+  async subirReceta(receta: Receta): Promise<boolean> {
+    const urlFoto = await this.subirFoto(receta.imagenes[0]);
+
+    if (urlFoto) {
+      try {
+        const recetasRef = collection(this._firestore, 'recetas');
+        await addDoc(recetasRef, { ...receta, imagenes: [urlFoto] });
+        return true;
+      } catch (error) {
+        console.error('Error al subir la receta: ', error);
+        return false;
+      }
+    } else {
+      return false;
+    }
+  }
 
   async subirFoto(base64Data: string) {
     try {
@@ -34,23 +54,6 @@ export class RecetaService {
       return downloadURL;
     } catch (error) {
       console.error('Error al subir la imagen a Firebase:', error);
-      return false;
-    }
-  }
-
-  async subirReceta(receta: Receta): Promise<boolean> {
-    const urlFoto = await this.subirFoto(receta.imagenes[0]);
-
-    if (urlFoto) {
-      try {
-        const recetasRef = collection(this._firestore, 'recetas');
-        await addDoc(recetasRef, { ...receta, imagenes: [urlFoto] });
-        return true;
-      } catch (error) {
-        console.error('Error al subir la receta: ', error);
-        return false;
-      }
-    } else {
       return false;
     }
   }

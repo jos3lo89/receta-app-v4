@@ -1,5 +1,4 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import {
   FormArray,
   FormBuilder,
@@ -20,12 +19,18 @@ import {
   IonInput,
   IonSelectOption,
   IonSelect,
-  IonText, IonIcon } from '@ionic/angular/standalone';
+  IonText,
+  IonIcon,
+  IonCard,
+  IonCardHeader,
+  IonCardContent,
+  IonCardTitle,
+  IonCardSubtitle,
+  IonTextarea,
+} from '@ionic/angular/standalone';
 import { CamaraModalComponent } from './components/camara-modal/camara-modal.component';
-// import { RecetasDataService } from '../../service/recetas-data.service';
-// import { ToastService } from 'src/app/shared/toast/toast.service';
 import { addIcons } from 'ionicons';
-import { add } from 'ionicons/icons';
+import { add, closeCircleOutline } from 'ionicons/icons';
 import { RecetaService } from 'src/app/recetas/services/receta.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 
@@ -34,7 +39,14 @@ import { ToastService } from 'src/app/shared/services/toast.service';
   templateUrl: './agregar-receta.page.html',
   styleUrls: ['./agregar-receta.page.scss'],
   standalone: true,
-  imports: [IonIcon, 
+  imports: [
+    IonTextarea,
+    IonCardSubtitle,
+    IonCardTitle,
+    IonCardContent,
+    IonCardHeader,
+    IonCard,
+    IonIcon,
     IonText,
     IonInput,
     IonButton,
@@ -45,7 +57,6 @@ import { ToastService } from 'src/app/shared/services/toast.service';
     IonHeader,
     IonTitle,
     IonToolbar,
-    CommonModule,
     FormsModule,
     IonSelectOption,
     ReactiveFormsModule,
@@ -63,9 +74,7 @@ export default class AgegarRecetaPage implements OnInit {
   private _toast = inject(ToastService);
 
   constructor() {
-
-    addIcons({add})
-
+    addIcons({ add, closeCircleOutline });
 
     this.recipeForm = this._formBuilder.group({
       nombre: ['', Validators.required],
@@ -75,7 +84,7 @@ export default class AgegarRecetaPage implements OnInit {
       preparacion: this._formBuilder.array([this._formBuilder.control('')]),
       region: ['', Validators.required],
       tipo: ['', Validators.required],
-      porciones: [1, Validators.required],
+      porciones: [null, Validators.required],
       imagenes: this._formBuilder.array([]),
       infoNutricional: this._formBuilder.group({
         carbohidratos: ['', Validators.required],
@@ -106,9 +115,16 @@ export default class AgegarRecetaPage implements OnInit {
   addIngrediente() {
     this.ingredientes.push(this._formBuilder.control(''));
   }
+  removeIngrediente(index: number) {
+    this.ingredientes.removeAt(index);
+  }
 
   addPreparacion() {
     this.preparacion.push(this._formBuilder.control(''));
+  }
+
+  removePreparacion(index: number) {
+    this.preparacion.removeAt(index);
   }
 
   capturedImage: string | undefined;
@@ -162,5 +178,10 @@ export default class AgegarRecetaPage implements OnInit {
     this.addIngrediente();
     this.addPreparacion();
     this.capturedImages = [];
+  }
+
+  removeImg(index: number) {
+    this.capturedImages.splice(index, 1);
+    this.imagenes.removeAt(index);
   }
 }

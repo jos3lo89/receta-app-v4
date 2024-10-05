@@ -18,7 +18,6 @@ export class StorageService {
 
   async set(key: string, value: any) {
     const result = await this._storage?.set(key, value);
-    console.log(result);
   }
 
   async get(key: string) {
