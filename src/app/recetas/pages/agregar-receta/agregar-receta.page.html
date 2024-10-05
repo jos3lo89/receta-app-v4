@@ -1,0 +1,207 @@
+<!-- <ion-content>
+  <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+    <ion-text color="tertiary" class="text-box-form">
+      <h3>Nombre de la receta</h3>
+    </ion-text>
+    <ion-item>
+      <ion-input
+        formControlName="nombre"
+        label="Nombre de la receta"
+        labelPlacement="floating"
+        placeholder="Ingrese el nombre"
+        type="text"
+      >
+      </ion-input>
+    </ion-item>
+
+    <ion-text color="tertiary" class="text-box-form">
+      <h3>Tiempo de cocción</h3>
+    </ion-text>
+    <ion-item>
+      <ion-input
+        formControlName="hora"
+        label="Hora"
+        type="number"
+        placeholder="999"
+      ></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input
+        formControlName="minutos"
+        label="Minutos"
+        type="number"
+        placeholder="999"
+      ></ion-input>
+    </ion-item>
+
+    <ion-text color="tertiary" class="text-box-form">
+      <h3>Porciones</h3>
+    </ion-text>
+    <ion-item>
+      <ion-input
+        formControlName="porciones"
+        label="Porciones"
+        type="number"
+        placeholder="999"
+      ></ion-input>
+    </ion-item>
+
+    <ion-text color="tertiary" class="text-box-form">
+      <h3>Ingredientes</h3>
+    </ion-text>
+
+    <ion-list formArrayName="ingredientes">
+      @for (ingrediente of ingredientes.controls; track $index) {
+      <ion-item class="input-margin">
+        <ion-input
+          [formControlName]="$index"
+          label="Ingrediente {{$index + 1}}"
+          labelPlacement="floating"
+          placeholder="Ingrese el ingrediente"
+          type="text"
+        >
+        </ion-input>
+      </ion-item>
+      }
+      <ion-button (click)="addIngrediente()" color="tertiary">
+        <ion-icon name="add"></ion-icon>
+        Ingrediente
+      </ion-button>
+    </ion-list>
+
+    <ion-text color="tertiary" class="text-box-form">
+      <h3>Preparación</h3>
+    </ion-text>
+
+    <ion-list formArrayName="preparacion">
+      @for (paso of preparacion.controls; track $index) {
+      <ion-item>
+        <ion-input
+          [formControlName]="$index"
+          label="Paso de preparación {{$index + 1}}"
+          labelPlacement="floating"
+          placeholder="Ingrese el paso"
+          type="text"
+        >
+        </ion-input>
+      </ion-item>
+      }
+      <ion-button (click)="addPreparacion()" color="tertiary" >
+        <ion-icon name="add"></ion-icon>
+        Pasos
+      </ion-button>
+    </ion-list>
+
+    <ion-text color="tertiary" class="text-box-form">
+      <h3>Región y Tipo de plato</h3>
+    </ion-text>
+
+    <ion-item>
+      <ion-label>Región</ion-label>
+      <ion-select formControlName="region">
+        <ion-select-option value="costa">Costa</ion-select-option>
+        <ion-select-option value="sierra">Sierra</ion-select-option>
+        <ion-select-option value="selva">Selva</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Tipo de Plato</ion-label>
+      <ion-select formControlName="tipo">
+        <ion-select-option value="entrada">Entrada</ion-select-option>
+        <ion-select-option value="sopa">Sopa</ion-select-option>
+        <ion-select-option value="plato de fondo"
+          >Plato de fondo</ion-select-option
+        >
+      </ion-select>
+    </ion-item>
+
+    <ion-text color="tertiary" class="text-box-form">
+      <h3>Información nutricional</h3>
+    </ion-text>
+
+    <ion-list formGroupName="infoNutricional">
+      <ion-item>
+        <ion-input
+          formControlName="carbohidratos"
+          label="Carbohidratos (g)"
+          type="number"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          formControlName="energia"
+          label="Energía (kcal)"
+          type="number"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          formControlName="grasas"
+          label="Grasas (g)"
+          type="number"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          formControlName="fibra"
+          label="Fibra (g)"
+          type="number"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          formControlName="proteina"
+          label="Proteína (g)"
+          type="number"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          formControlName="grasasSaturadas"
+          label="Grasas Saturadas (g)"
+          type="number"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          formControlName="sodio"
+          label="Sodio (mg)"
+          type="number"
+        ></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input
+          formControlName="azucares"
+          label="Azúcares (g)"
+          type="number"
+        ></ion-input>
+      </ion-item>
+    </ion-list>
+
+
+    <ion-text color="tertiary" class="text-box-form">
+      <h3>Foto</h3>
+    </ion-text>
+
+    <ion-button (click)="openModal()">Seleccionar imagen</ion-button>
+    <app-camara-modal
+      [isOpen]="isModalOpen"
+      (closeModalEvent)="closeModal()"
+      (captureEvent)="handleCapture($event)"
+    ></app-camara-modal>
+    <ion-list>
+      @for (image of capturedImages; track $index) {
+      <img [src]="image" alt="Captured" style="width: 100%; margin-top: 10px" />
+      }
+    </ion-list>
+    <ion-button
+      expand="block"
+      type="submit"
+      [disabled]="isLoading"
+      [color]="isLoading ? 'dark': 'primary'"
+    >
+      {{isLoading ? "Cargando..." : "Subir Receta" }}
+    </ion-button>
+  </form>
+</ion-content> -->

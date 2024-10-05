@@ -6,6 +6,11 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardSubtitle,
+  IonCardContent,
 } from '@ionic/angular/standalone';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { CurrentUser } from 'src/app/types/recetas-app';
@@ -19,6 +24,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./profile.page.scss'],
   standalone: true,
   imports: [
+    IonCardContent,
+    IonCardSubtitle,
+    IonCardTitle,
+    IonCardHeader,
+    IonCard,
     IonContent,
     IonHeader,
     IonTitle,

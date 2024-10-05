@@ -11,7 +11,6 @@ import {
 import { doc, Firestore, getDoc, setDoc } from '@angular/fire/firestore';
 import { GoogleAuth, User } from '@codetrix-studio/capacitor-google-auth';
 import { isPlatform } from '@ionic/angular';
-import { Observable } from 'rxjs';
 import { StorageService } from 'src/app/shared/services/storage.service';
 import { CurrentUser } from 'src/app/types/recetas-app';
 

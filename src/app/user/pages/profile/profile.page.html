@@ -1,6 +1,18 @@
 <ion-content>
-  <h1>{{currentUser?.nombre}}</h1>
-  <img [src]="currentUser?.foto" alt="Foto user" />
+  <ion-card>
+    <div class="img-card">
+      <img alt="Silhouette of mountains" [src]="currentUser?.foto" />
+    </div>
+    <ion-card-header>
+      <ion-card-title
+        >{{currentUser?.nombre}} {{currentUser?.apellido}}</ion-card-title
+      >
+      <ion-card-subtitle>{{currentUser?.email}}</ion-card-subtitle>
+      <ion-card-subtitle>rol: {{currentUser?.rol}}</ion-card-subtitle>
+    </ion-card-header>
+  </ion-card>
 
-  <app-log-out (clickMe)="logOut()" />
+  <ion-card class="btn-card">
+    <app-log-out (clickMe)="logOut()" />
+  </ion-card>
 </ion-content>
