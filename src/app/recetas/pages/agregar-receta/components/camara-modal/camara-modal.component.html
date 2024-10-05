@@ -1,0 +1,24 @@
+<ion-modal [isOpen]="isOpen">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Seleccionar imagen</ion-title>
+        <ion-buttons slot="end">
+          <ion-button (click)="closeModal()">
+            <ion-icon name="close"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-button expand="block" (click)="takePicture(CameraSource.Camera)">
+        <ion-icon name="camera" slot="start"></ion-icon>
+        Tomar foto
+      </ion-button>
+      <ion-button expand="block" (click)="takePicture(CameraSource.Photos)">
+        <ion-icon name="image" slot="start"></ion-icon>
+        Seleccionar de galería
+      </ion-button>
+    </ion-content>
+  </ng-template>
+</ion-modal>

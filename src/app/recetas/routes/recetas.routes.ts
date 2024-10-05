@@ -1,9 +1,8 @@
-import { Routes } from "@angular/router";
+import { Routes } from '@angular/router';
 
-export default  [
+export default [
   {
-    path: "home",
-    loadComponent :() => import("../pages/home/home.page")
+    path: 'home',
+    loadComponent: () => import('../pages/home/home.page'),
   },
-  
-] as Routes
+] as Routes;

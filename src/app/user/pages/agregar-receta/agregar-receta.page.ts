@@ -21,11 +21,11 @@ import {
   IonList,
   IonSelectOption,
 } from '@ionic/angular/standalone';
+import { RecetaService } from 'src/app/recetas/services/receta.service';
 import { ToastService } from 'src/app/shared/services/toast.service';
 import { addIcons } from 'ionicons';
 import { add } from 'ionicons/icons';
 import { CamaraModalComponent } from './components/camara-modal/camara-modal.component';
-import { RecetaService } from '../../services/receta.service';
 
 @Component({
   selector: 'app-agregar-receta',
@@ -33,21 +33,26 @@ import { RecetaService } from '../../services/receta.service';
   styleUrls: ['./agregar-receta.page.scss'],
   standalone: true,
   imports: [
-    IonList,
-    IonLabel,
-    IonIcon,
     IonButton,
-    IonItem,
-    IonText,
     IonContent,
+    IonText,
+    IonLabel,
+    IonList,
+    IonSelectOption,
+    IonItem,
+    IonIcon,
+    IonToolbar,
     IonHeader,
     IonTitle,
-    IonToolbar,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    IonSelectOption,
     CamaraModalComponent,
+    ReactiveFormsModule,
+    // CommonModule,
+
+    /*
+    FormsModule,
+
+
+    */
   ],
 })
 export class AgregarRecetaPage implements OnInit {

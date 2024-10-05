@@ -20,6 +20,7 @@ import { environment } from './environments/environment.prod';
 import { importProvidersFrom } from '@angular/core';
 import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
+import { defineCustomElements } from '@ionic/pwa-elements/loader';
 
 bootstrapApplication(AppComponent, {
   providers: [
@@ -38,3 +39,5 @@ bootstrapApplication(AppComponent, {
     ),
   ],
 });
+
+defineCustomElements(window);

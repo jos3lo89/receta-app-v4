@@ -20,7 +20,7 @@ export class NavigationUserComponent implements OnInit {
 
   navigationRoutes = [
     {
-      path: '/user/agregar-receta',
+      path: '/user/receta/agregar-receta',
       name: 'Agregar Receta',
       icon: 'log-in-outline',
       restrictedToAdmin: true,
