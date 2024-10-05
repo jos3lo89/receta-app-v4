@@ -15,9 +15,6 @@ export default [
 
   {
     path: 'receta/agregar-receta',
-    loadComponent: () =>
-      import('../pages/agregar-receta/agregar-receta.page').then(
-        (m) => m.AgregarRecetaPage
-      ),
+    loadComponent: () => import('../pages/agregar-receta/agregar-receta.page'),
   },
 ] as Routes;

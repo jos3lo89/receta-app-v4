@@ -13,59 +13,59 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
-  IonText,
   IonItem,
-  IonButton,
-  IonIcon,
   IonLabel,
   IonList,
+  IonButton,
+  IonInput,
   IonSelectOption,
-} from '@ionic/angular/standalone';
-import { RecetaService } from 'src/app/recetas/services/receta.service';
-import { ToastService } from 'src/app/shared/services/toast.service';
+  IonSelect,
+  IonText, IonIcon } from '@ionic/angular/standalone';
+import { CamaraModalComponent } from './components/camara-modal/camara-modal.component';
+// import { RecetasDataService } from '../../service/recetas-data.service';
+// import { ToastService } from 'src/app/shared/toast/toast.service';
 import { addIcons } from 'ionicons';
 import { add } from 'ionicons/icons';
-import { CamaraModalComponent } from './components/camara-modal/camara-modal.component';
+import { RecetaService } from 'src/app/recetas/services/receta.service';
+import { ToastService } from 'src/app/shared/services/toast.service';
 
 @Component({
-  selector: 'app-agregar-receta',
+  selector: 'app-agegar-receta',
   templateUrl: './agregar-receta.page.html',
   styleUrls: ['./agregar-receta.page.scss'],
   standalone: true,
-  imports: [
-    IonButton,
-    IonContent,
+  imports: [IonIcon, 
     IonText,
-    IonLabel,
+    IonInput,
+    IonButton,
     IonList,
-    IonSelectOption,
+    IonLabel,
     IonItem,
-    IonIcon,
-    IonToolbar,
+    IonContent,
     IonHeader,
     IonTitle,
-    CamaraModalComponent,
-    ReactiveFormsModule,
-    // CommonModule,
-
-    /*
+    IonToolbar,
+    CommonModule,
     FormsModule,
-
-
-    */
+    IonSelectOption,
+    ReactiveFormsModule,
+    IonSelect,
+    CamaraModalComponent,
   ],
 })
-export class AgregarRecetaPage implements OnInit {
+export default class AgegarRecetaPage implements OnInit {
   recipeForm: FormGroup;
   isModalOpen = false;
   capturedImages: string[] = [];
 
   private _formBuilder = inject(FormBuilder);
-  private _recetaService = inject(RecetaService);
+  private _recetasDataService = inject(RecetaService);
   private _toast = inject(ToastService);
 
   constructor() {
-    addIcons({ add });
+
+    addIcons({add})
+
 
     this.recipeForm = this._formBuilder.group({
       nombre: ['', Validators.required],
@@ -132,7 +132,7 @@ export class AgregarRecetaPage implements OnInit {
     if (this.recipeForm.valid) {
       this.isLoading = true;
 
-      const success = await this._recetaService.subirReceta(
+      const success = await this._recetasDataService.subirReceta(
         this.recipeForm.value
       );
 
