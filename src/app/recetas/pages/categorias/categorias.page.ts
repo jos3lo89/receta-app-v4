@@ -6,29 +6,42 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
+  IonCard,
+  IonButton,
   IonGrid,
   IonRow,
   IonCol,
-  IonCard,
   IonImg,
   IonCardHeader,
+  IonSpinner,
+  IonText,
 } from '@ionic/angular/standalone';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+
+import { categorias } from './data-access/categorias';
 import { RecetaService } from '../../services/receta.service';
 import { RecetaFirebase } from '../../models/receta.model';
+import { Router } from '@angular/router';
+
+interface Categoria {
+  name: string;
+  img: string;
+}
 
 @Component({
-  selector: 'app-regiones',
-  templateUrl: './regiones.page.html',
-  styleUrls: ['./regiones.page.scss'],
+  selector: 'app-categorias',
+  templateUrl: './categorias.page.html',
+  styleUrls: ['./categorias.page.scss'],
   standalone: true,
   imports: [
+    IonText,
+    IonSpinner,
     IonCardHeader,
     IonImg,
-    IonCard,
     IonCol,
     IonRow,
     IonGrid,
+    IonButton,
+    IonCard,
     IonContent,
     IonHeader,
     IonTitle,
@@ -37,45 +50,34 @@ import { RecetaFirebase } from '../../models/receta.model';
     FormsModule,
   ],
 })
-export default class RegionesPage implements OnInit {
-  private _rutaActiva = inject(ActivatedRoute);
+export default class CategoriasPage implements OnInit {
   private _recetaService = inject(RecetaService);
   private _router = inject(Router);
-
-  param = {
-    region: '',
-  };
+  tipoDePlatos: Categoria[] = categorias;
 
   recetas: RecetaFirebase[] = [];
 
-  constructor() {
-    this._rutaActiva.queryParams.subscribe((params) => {
-      if (params['reg']) {
-        this.param.region = params['reg'];
-        this.obtenerRecetas(params['reg']);
-      }
-    });
-  }
+  constructor() {}
 
   ngOnInit() {}
 
-  obtenerRecetas(region: string) {
-    this._recetaService.recetasPorRegion(region).subscribe({
+  obtenerPlatos(tipo: string) {
+    this._recetaService.platosPorTipo(tipo).subscribe({
       next: (data) => {
         this.recetas = data;
-        console.log(`recetas de ${region}`, data);
+        console.log(data);
       },
       error: (error) => {
-        console.log(`Error al obetener las recetas de la  ${region}`, error);
+        console.log(error);
       },
     });
   }
 
-  irDetalles(id: string) {
+  detalles(id: string) {
     this._router.navigate(['/recetas/detalles'], {
       queryParams: {
         id,
-        back: this.param.region,
+        back: 'categorias',
       },
     });
   }

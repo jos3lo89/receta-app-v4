@@ -13,4 +13,8 @@ export default [
     path: 'detalles',
     loadComponent: () => import('../pages/detalles/detalles.page'),
   },
+  {
+    path: 'categorias',
+    loadComponent: () => import('../pages/categorias/categorias.page'),
+  },
 ] as Routes;

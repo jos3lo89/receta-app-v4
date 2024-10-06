@@ -28,5 +28,4 @@ export const routes: Routes = [
     redirectTo: 'recetas/home',
     pathMatch: 'full',
   },
-
 ];

@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { RoleGaurd, RoleGaurd2 } from '../guard/role.guard';
 
 export default [
   {
@@ -14,6 +15,7 @@ export default [
   // },
 
   {
+    canActivate: [RoleGaurd2()],
     path: 'receta/agregar-receta',
     loadComponent: () => import('../pages/agregar-receta/agregar-receta.page'),
   },

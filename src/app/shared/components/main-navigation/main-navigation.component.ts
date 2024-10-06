@@ -31,7 +31,7 @@ export class MainNavigationComponent implements OnInit {
       icon: 'home-outline',
     },
     {
-      path: '/recetas/categories',
+      path: '/recetas/categorias',
       name: 'Catergorias',
       icon: 'albums-outline',
     },

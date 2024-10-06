@@ -131,4 +131,24 @@ export class RecetaService {
         });
     });
   }
+
+  platosPorTipo(tipo: string): Observable<RecetaFirebase[]> {
+    const documentReference = collection(this._firestore, this.collectionName);
+    const q = query(documentReference, where('tipo', '==', tipo));
+
+    return new Observable((observer) => {
+      getDocs(q)
+        .then((querySnapshot) => {
+          const items = querySnapshot.docs.map((doc) => {
+            return { id: doc.id, ...doc.data() } as RecetaFirebase;
+          });
+
+          observer.next(items);
+          observer.complete();
+        })
+        .catch((error) => {
+          observer.error(error);
+        });
+    });
+  }
 }

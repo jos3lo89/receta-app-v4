@@ -1,0 +1,42 @@
+.title-box {
+  padding: 10px;
+  text-align: center;
+  color: #72bf78;
+}
+
+.cat-box {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 15px;
+  gap: 10px;
+}
+
+.cat {
+  text-align: center;
+}
+
+.cat img {
+  border-radius: 20px;
+  min-width: 55px;
+  max-width: 70px;
+}
+
+.no-scroll {
+  height: 100%;
+  overflow: hidden;
+}
+
+ion-grid {
+  height: 100%;
+}
+
+.text-else-box {
+  color: yellow;
+  padding-top: 50px;
+  text-align: center;
+}
+.text-else-box2 {
+  color: yellow;
+  text-align: center;
+}

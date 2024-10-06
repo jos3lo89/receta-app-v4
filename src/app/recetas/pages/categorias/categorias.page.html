@@ -1,0 +1,44 @@
+<ion-content>
+  <ion-card class="title-box">
+    <ion-title> Categorias </ion-title>
+  </ion-card>
+  <ion-card>
+    <div class="cat-box">
+      @for (tipo of tipoDePlatos; track $index) {
+
+      <div class="cat" (click)="obtenerPlatos(tipo.name)">
+        <div>
+          <img [src]="tipo.img" [alt]="tipo.name" />
+        </div>
+        <div>
+          <p>{{tipo.name}}</p>
+        </div>
+      </div>
+      }
+    </div>
+  </ion-card>
+
+  <ion-grid>
+    @if (recetas.length !== 0) {
+    <ion-title>
+      <div class="text-else-box2">{{recetas[0].tipo}}</div>
+    </ion-title>
+    <ion-row>
+      @for (plato of recetas; track $index) {
+      <ion-col size="6" size-sm="4" size-md="3" size-lg="2">
+        <ion-card (click)="detalles(plato.id)" >
+          <ion-img [src]="plato.imagenes[0]" alt="{{ plato.nombre }}"></ion-img>
+          <ion-card-header>
+            <h5>{{ plato.nombre }}</h5>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+      }
+    </ion-row>
+    } @else {
+    <ion-text>
+      <div class="text-else-box">Selecione una Categoria</div>
+    </ion-text>
+    }
+  </ion-grid>
+</ion-content>

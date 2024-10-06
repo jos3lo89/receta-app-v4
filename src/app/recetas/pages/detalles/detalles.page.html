@@ -1,11 +1,49 @@
 <ion-content>
+  <div class="btn-box">
+    @if (!backBtn) {
+
+    <ion-button (click)="backRoute('region')" fill="clear">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="17"
+        height="17"
+        viewBox="0 0 2048 2048"
+      >
+        <path
+          fill="#eab308"
+          d="M2048 1088H250l787 787l-90 90L6 1024L947 83l90 90l-787 787h1798z"
+        />
+      </svg>
+
+      <span style="margin-left: 10px"> Atras </span>
+    </ion-button>
+
+    } @else {
+    <ion-button (click)="backRoute('categorias')" fill="clear">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="17"
+        height="17"
+        viewBox="0 0 2048 2048"
+      >
+        <path
+          fill="#eab308"
+          d="M2048 1088H250l787 787l-90 90L6 1024L947 83l90 90l-787 787h1798z"
+        />
+      </svg>
+
+      <span style="margin-left: 10px"> Atras </span>
+    </ion-button>
+
+    }
+  </div>
   @if (receta) {
   <ion-card>
     <div class="img-box">
       <img alt="receta foto" [src]="receta.imagenes[0]" width="200" />
     </div>
     <ion-card-header>
-      <ion-card-title>{{receta.nombre}}</ion-card-title>
+      <ion-card-title class="title-card">{{receta.nombre}}</ion-card-title>
     </ion-card-header>
   </ion-card>
   <ion-card>
@@ -40,15 +78,54 @@
   </ion-card>
 
   <ion-card>
+    <ion-card-title>
+      <div class="title-box">
+        <ion-text color="secondary">
+          <h1>Ingredientes</h1>
+        </ion-text>
+      </div>
+    </ion-card-title>
     <ion-card-content>
       <ion-list>
         <div class="ingrediente-box">
           @for (ingrediente of receta.ingredientes; track $index) {
-            <ion-item>
-              <ion-checkbox slot="start"></ion-checkbox>
-              <ion-label>{{ ingrediente }}</ion-label>
-            </ion-item>
+          <ion-item>
+            <!-- <ion-checkbox slot="start"></ion-checkbox> -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="#65a30d"
+                d="M12.192 16.827V12.5H3.077v-1h9.115V7.173L19.788 12z"
+              />
+            </svg>
+            <ion-label> {{ ingrediente }}</ion-label>
+          </ion-item>
+          }
+        </div>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 
+  <ion-card>
+    <ion-card-title>
+      <div class="title-box">
+        <ion-text color="secondary">
+          <h1>Preparación</h1>
+        </ion-text>
+      </div>
+    </ion-card-title>
+    <ion-card-content>
+      <ion-list>
+        <div class="ingrediente-box">
+          @for (preparacion of receta.preparacion; track $index) {
+          <ion-item>
+            <ion-checkbox slot="start"></ion-checkbox>
+            <ion-label>{{ preparacion }}</ion-label>
+          </ion-item>
           }
         </div>
       </ion-list>

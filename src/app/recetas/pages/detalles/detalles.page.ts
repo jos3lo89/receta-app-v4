@@ -5,8 +5,24 @@ import {
   IonContent,
   IonHeader,
   IonTitle,
-  IonToolbar, IonCard, IonCardHeader, IonCardTitle, IonCardSubtitle, IonCardContent, IonSpinner, IonText, IonIcon, IonList, IonCheckbox, IonItem, IonLabel } from '@ionic/angular/standalone';
-import { ActivatedRoute } from '@angular/router';
+  IonToolbar,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardSubtitle,
+  IonCardContent,
+  IonSpinner,
+  IonText,
+  IonIcon,
+  IonList,
+  IonCheckbox,
+  IonItem,
+  IonLabel,
+  IonButton,
+  IonBackButton,
+  IonButtons,
+} from '@ionic/angular/standalone';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RecetaService } from '../../services/receta.service';
 import { RecetaFirebase } from '../../models/receta.model';
 import { addIcons } from 'ionicons';
@@ -17,7 +33,22 @@ import { peopleOutline, timerOutline } from 'ionicons/icons';
   templateUrl: './detalles.page.html',
   styleUrls: ['./detalles.page.scss'],
   standalone: true,
-  imports: [IonLabel, IonItem, IonCheckbox, IonList, IonIcon, IonText, IonSpinner, IonCardContent, IonCardSubtitle, IonCardTitle, IonCardHeader, IonCard,
+  imports: [
+    IonButtons,
+    IonBackButton,
+    IonButton,
+    IonLabel,
+    IonItem,
+    IonCheckbox,
+    IonList,
+    IonIcon,
+    IonText,
+    IonSpinner,
+    IonCardContent,
+    IonCardSubtitle,
+    IonCardTitle,
+    IonCardHeader,
+    IonCard,
     IonContent,
     IonHeader,
     IonTitle,
@@ -29,21 +60,27 @@ import { peopleOutline, timerOutline } from 'ionicons/icons';
 export default class DetallesPage implements OnInit {
   private _activateRoute = inject(ActivatedRoute);
   private _recetaService = inject(RecetaService);
+  private _route = inject(Router);
+
   params = {
     id: '',
+    back: '',
   };
+
+  backBtn = false;
 
   receta: RecetaFirebase | null = null;
 
   constructor() {
-
-    addIcons({timerOutline, peopleOutline});
-
+    addIcons({ timerOutline, peopleOutline });
 
     this._activateRoute.queryParams.subscribe((param) => {
-      if (param['id']) {
+      if (param['id'] || param['back']) {
         this.params.id = param['id'];
-        console.log(param['id']);
+        this.params.back = param['back'];
+
+        this.backBtn = param['back'] == 'categorias' ? true : false;
+
         this.obetenerDetalles(param['id']);
       }
     });
@@ -60,6 +97,17 @@ export default class DetallesPage implements OnInit {
       error: (error) => {
         console.log(error);
       },
+    });
+  }
+
+  backRoute(backRoute: string) {
+    this._route.navigate([`/recetas/${backRoute}`], {
+      queryParams:
+        this.params.back == 'categorias'
+          ? {}
+          : {
+              reg: this.receta?.region,
+            },
     });
   }
 }

@@ -16,12 +16,10 @@
   margin-top: 10px;
 }
 
-
 ion-spinner {
   width: 100px;
   height: 100px;
 }
-
 
 .detalles-card-box {
   display: flex;
@@ -42,9 +40,8 @@ ion-spinner {
 }
 
 .text-detalles {
-  color: #6439FF;
+  color: #6439ff;
 }
-
 
 ion-checkbox {
   --size: 32px;
@@ -56,10 +53,26 @@ ion-checkbox::part(container) {
   border: 2px solid #6815ec;
 }
 
-
 .ingrediente-box {
   display: flex;
   flex-direction: column;
   gap: 20px;
   justify-content: start;
+}
+
+.title-box {
+  text-align: center;
+  padding-top: 10px;
+}
+
+.title-card {
+  text-align: center;
+  color: yellow;
+}
+
+
+.btn-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
