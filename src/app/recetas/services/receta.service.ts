@@ -1,12 +1,22 @@
 import { inject, Injectable } from '@angular/core';
-import { addDoc, collection, Firestore } from '@angular/fire/firestore';
+import {
+  addDoc,
+  collection,
+  doc,
+  Firestore,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from '@angular/fire/firestore';
 import {
   getDownloadURL,
   ref,
   Storage,
   uploadString,
 } from '@angular/fire/storage';
-import { Receta } from '../models/receta.model';
+import { Receta, RecetaFirebase } from '../models/receta.model';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -14,6 +24,8 @@ import { Receta } from '../models/receta.model';
 export class RecetaService {
   private _storage = inject(Storage);
   private _firestore = inject(Firestore);
+
+  private collectionName = 'recetas';
 
   constructor() {}
 
@@ -34,7 +46,7 @@ export class RecetaService {
     }
   }
 
-  async subirFoto(base64Data: string) {
+  private async subirFoto(base64Data: string) {
     try {
       const base64Parts = base64Data.split(';base64,');
       const contentType = base64Parts[0].split(':')[1];
@@ -56,5 +68,67 @@ export class RecetaService {
       console.error('Error al subir la imagen a Firebase:', error);
       return false;
     }
+  }
+
+  recetasData(): Observable<RecetaFirebase[]> {
+    const collectionReference = collection(
+      this._firestore,
+      this.collectionName
+    );
+
+    return new Observable((observer) => {
+      getDocs(collectionReference)
+        .then((querySnapshot) => {
+          const items = querySnapshot.docs.map((doc) => {
+            return { id: doc.id, ...doc.data() } as RecetaFirebase;
+          });
+          observer.next(items);
+          observer.complete();
+        })
+        .catch((error) => observer.error(error));
+    });
+  }
+
+  recetasPorRegion(region: string): Observable<RecetaFirebase[]> {
+    const collectionReference = collection(
+      this._firestore,
+      this.collectionName
+    );
+
+    const q = query(collectionReference, where('region', '==', region));
+    return new Observable((observer) => {
+      getDocs(q)
+        .then((querySnapshot) => {
+          const items = querySnapshot.docs.map((doc) => {
+            return { id: doc.id, ...doc.data() } as RecetaFirebase;
+          });
+
+          observer.next(items);
+          observer.complete();
+        })
+        .catch((error) => {
+          observer.error(error);
+        });
+    });
+  }
+
+  recetasPorId(id: string): Observable<RecetaFirebase> {
+    const documentReference = doc(this._firestore, `recetas/${id}`);
+
+    return new Observable((observer) => {
+      getDoc(documentReference)
+        .then((querySnapshot) => {
+          const item = {
+            id: querySnapshot.id,
+            ...querySnapshot.data(),
+          } as RecetaFirebase;
+
+          observer.next(item);
+          observer.complete();
+        })
+        .catch((error) => {
+          observer.error(error);
+        });
+    });
   }
 }

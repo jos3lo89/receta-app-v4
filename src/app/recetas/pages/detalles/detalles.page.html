@@ -1,0 +1,62 @@
+<ion-content>
+  @if (receta) {
+  <ion-card>
+    <div class="img-box">
+      <img alt="receta foto" [src]="receta.imagenes[0]" width="200" />
+    </div>
+    <ion-card-header>
+      <ion-card-title>{{receta.nombre}}</ion-card-title>
+    </ion-card-header>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <div class="detalles-card-box">
+        <div class="detalle-card">
+          <ion-icon name="people-outline" size="large"></ion-icon>
+          <p>Porciones</p>
+          <strong>{{receta.porciones}}</strong>
+        </div>
+        <div class="detalle-card">
+          <ion-icon name="timer-outline" size="large"></ion-icon>
+          <p>Total</p>
+          <strong>{{receta.minutos}} min</strong>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <ion-card>
+    <ion-card-content>
+      <div class="detalles-card-box">
+        <div class="detalle-card">
+          <p class="text-detalles">Región</p>
+          <strong>{{receta.region}}</strong>
+        </div>
+        <div class="detalle-card">
+          <p class="text-detalles">Tipo</p>
+          <strong>{{receta.tipo}}</strong>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <div class="ingrediente-box">
+          @for (ingrediente of receta.ingredientes; track $index) {
+            <ion-item>
+              <ion-checkbox slot="start"></ion-checkbox>
+              <ion-label>{{ ingrediente }}</ion-label>
+            </ion-item>
+
+          }
+        </div>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+  } @else {
+  <div class="spinner-box">
+    <ion-spinner color="danger"></ion-spinner>
+  </div>
+  }
+</ion-content>

@@ -6,7 +6,11 @@ export default [
     loadComponent: () => import('../pages/home/home.page'),
   },
   {
-    path: "region",
-    loadComponent: () => import("../pages/regiones/regiones.page")
-  }
+    path: 'region',
+    loadComponent: () => import('../pages/regiones/regiones.page'),
+  },
+  {
+    path: 'detalles',
+    loadComponent: () => import('../pages/detalles/detalles.page'),
+  },
 ] as Routes;

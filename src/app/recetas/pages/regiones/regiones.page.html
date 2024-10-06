@@ -1,3 +1,16 @@
 <ion-content>
-  <h1>recetas {{param.region}}</h1>
+  <ion-grid>
+    <ion-row>
+      @for (plato of recetas; track $index) {
+      <ion-col size="6" size-sm="4" size-md="3" size-lg="2">
+        <ion-card (click)="irDetalles(plato.id)">
+          <ion-img [src]="plato.imagenes[0]" alt="{{ plato.nombre }}"></ion-img>
+          <ion-card-header>
+            <h5>{{ plato.nombre }}</h5>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+      }
+    </ion-row>
+  </ion-grid>
 </ion-content>

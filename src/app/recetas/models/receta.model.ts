@@ -19,3 +19,7 @@ export interface Receta {
   //   azucares: number;
   // };
 }
+
+export interface RecetaFirebase extends Receta {
+  id: string;
+}
