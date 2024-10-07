@@ -22,7 +22,7 @@ import {
   IonBackButton,
   IonButtons,
 } from '@ionic/angular/standalone';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { RecetaService } from '../../services/receta.service';
 import { RecetaFirebase } from '../../models/receta.model';
 import { addIcons } from 'ionicons';
@@ -78,9 +78,6 @@ export default class DetallesPage implements OnInit {
       if (param['id'] || param['back']) {
         this.params.id = param['id'];
         this.params.back = param['back'];
-
-        this.backBtn = param['back'] == 'categorias' ? true : false;
-
         this.obetenerDetalles(param['id']);
       }
     });
@@ -100,14 +97,17 @@ export default class DetallesPage implements OnInit {
     });
   }
 
-  backRoute(backRoute: string) {
-    this._route.navigate([`/recetas/${backRoute}`], {
-      queryParams:
-        this.params.back == 'categorias'
-          ? {}
-          : {
+  backRoute() {
+    const param: NavigationExtras =
+      this.params.back == 'region'
+        ? {
+            queryParams: {
               reg: this.receta?.region,
             },
-    });
+          }
+        : {
+            queryParams: {},
+          };
+    this._route.navigate([`/recetas/${this.params.back}`], param);
   }
 }

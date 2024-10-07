@@ -36,7 +36,7 @@ export class MainNavigationComponent implements OnInit {
       icon: 'albums-outline',
     },
     {
-      path: '/recetas/search',
+      path: '/recetas/busqueda',
       name: 'Buscar',
       icon: 'search',
     },

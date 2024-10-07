@@ -1,0 +1,33 @@
+<ion-content>
+  <div class="busqueda-box">
+    <ion-searchbar [(ngModel)]="nombreBusqueda"></ion-searchbar>
+    <ion-button (click)="buscar()"> buscar </ion-button>
+  </div>
+
+  <ion-card>
+    <ion-grid>
+      <ion-row>
+        @if (recetas.length !== 0) { @for (receta of recetas; track $index) {
+        <ion-col size="6" size-sm="4" size-md="3" size-lg="2">
+          <ion-card (click)="irDetalles(receta.id)">
+            <ion-img
+              [src]="receta.imagenes[0]"
+              alt="{{ receta.nombre }}"
+            ></ion-img>
+            <ion-card-header>
+              <h5>{{ receta.nombre }}</h5>
+            </ion-card-header>
+          </ion-card>
+        </ion-col>
+
+        } }@else {
+        <p class="text-else">
+          <ion-text color="danger"
+            >Escribe el nombre de la receta para buscar.</ion-text
+          >
+        </p>
+        }
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+</ion-content>

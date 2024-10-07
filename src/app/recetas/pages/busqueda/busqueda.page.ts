@@ -6,29 +6,37 @@ import {
   IonHeader,
   IonTitle,
   IonToolbar,
+  IonSearchbar,
+  IonButton,
+  IonCard,
+  IonCardContent,
   IonGrid,
   IonRow,
   IonCol,
-  IonCard,
   IonImg,
   IonCardHeader,
+  IonText,
 } from '@ionic/angular/standalone';
-import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { RecetaService } from '../../services/receta.service';
 import { RecetaFirebase } from '../../models/receta.model';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-regiones',
-  templateUrl: './regiones.page.html',
-  styleUrls: ['./regiones.page.scss'],
+  selector: 'app-busqueda',
+  templateUrl: './busqueda.page.html',
+  styleUrls: ['./busqueda.page.scss'],
   standalone: true,
   imports: [
+    IonText,
     IonCardHeader,
     IonImg,
-    IonCard,
     IonCol,
     IonRow,
     IonGrid,
+    IonCardContent,
+    IonCard,
+    IonButton,
+    IonSearchbar,
     IonContent,
     IonHeader,
     IonTitle,
@@ -37,36 +45,32 @@ import { RecetaFirebase } from '../../models/receta.model';
     FormsModule,
   ],
 })
-export default class RegionesPage implements OnInit {
-  private _rutaActiva = inject(ActivatedRoute);
+export default class BusquedaPage implements OnInit {
   private _recetaService = inject(RecetaService);
   private _router = inject(Router);
 
-  param = {
-    region: '',
-  };
-
   recetas: RecetaFirebase[] = [];
+  nombreBusqueda: string = '';
 
-  constructor() {
-    this._rutaActiva.queryParams.subscribe((params) => {
-      if (params['reg']) {
-        this.param.region = params['reg'];
-        this.obtenerRecetas(params['reg']);
-      }
-    });
-  }
+  constructor() {}
 
   ngOnInit() {}
 
-  obtenerRecetas(region: string) {
-    this._recetaService.recetasPorRegion(region).subscribe({
+  buscar() {
+    if (this.nombreBusqueda.trim()) {
+      console.log(this.nombreBusqueda);
+      this.obtenerRecetas(this.nombreBusqueda);
+    }
+  }
+
+  obtenerRecetas(nombre: string) {
+    this._recetaService.recetasPorNombre(nombre).subscribe({
       next: (data) => {
         this.recetas = data;
-        console.log(`recetas de ${region}`, data);
+        console.log(data);
       },
       error: (error) => {
-        console.log(`Error al obetener las recetas de la  ${region}`, error);
+        console.log(error);
       },
     });
   }
@@ -75,7 +79,7 @@ export default class RegionesPage implements OnInit {
     this._router.navigate(['/recetas/detalles'], {
       queryParams: {
         id,
-        back: "region",
+        back: 'busqueda',
       },
     });
   }

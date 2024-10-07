@@ -3,10 +3,13 @@ import {
   addDoc,
   collection,
   doc,
+  endAt,
   Firestore,
   getDoc,
   getDocs,
+  orderBy,
   query,
+  startAt,
   where,
 } from '@angular/fire/firestore';
 import {
@@ -35,7 +38,11 @@ export class RecetaService {
     if (urlFoto) {
       try {
         const recetasRef = collection(this._firestore, 'recetas');
-        await addDoc(recetasRef, { ...receta, imagenes: [urlFoto] });
+        await addDoc(recetasRef, {
+          ...receta,
+          imagenes: [urlFoto],
+          nombreNormalizado: receta.nombre.toLocaleLowerCase(),
+        });
         return true;
       } catch (error) {
         console.error('Error al subir la receta: ', error);
@@ -135,6 +142,35 @@ export class RecetaService {
   platosPorTipo(tipo: string): Observable<RecetaFirebase[]> {
     const documentReference = collection(this._firestore, this.collectionName);
     const q = query(documentReference, where('tipo', '==', tipo));
+
+    return new Observable((observer) => {
+      getDocs(q)
+        .then((querySnapshot) => {
+          const items = querySnapshot.docs.map((doc) => {
+            return { id: doc.id, ...doc.data() } as RecetaFirebase;
+          });
+
+          observer.next(items);
+          observer.complete();
+        })
+        .catch((error) => {
+          observer.error(error);
+        });
+    });
+  }
+
+  recetasPorNombre(nombre: string): Observable<RecetaFirebase[]> {
+    const documentReference = collection(this._firestore, this.collectionName);
+
+    const nombreMinuscula = nombre.toLocaleLowerCase();
+    const endNombre = nombreMinuscula + '\uf8ff';
+
+    const q = query(
+      documentReference,
+      orderBy('nombreNormalizado'),
+      startAt(nombre),
+      endAt(endNombre)
+    );
 
     return new Observable((observer) => {
       getDocs(q)

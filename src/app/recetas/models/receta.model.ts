@@ -22,4 +22,5 @@ export interface Receta {
 
 export interface RecetaFirebase extends Receta {
   id: string;
+  nombreNormalizado: string;
 }

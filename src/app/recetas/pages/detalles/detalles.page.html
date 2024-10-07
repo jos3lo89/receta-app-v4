@@ -1,8 +1,6 @@
 <ion-content>
   <div class="btn-box">
-    @if (!backBtn) {
-
-    <ion-button (click)="backRoute('region')" fill="clear">
+    <ion-button (click)="backRoute()" fill="clear">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="17"
@@ -17,25 +15,6 @@
 
       <span style="margin-left: 10px"> Atras </span>
     </ion-button>
-
-    } @else {
-    <ion-button (click)="backRoute('categorias')" fill="clear">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="17"
-        height="17"
-        viewBox="0 0 2048 2048"
-      >
-        <path
-          fill="#eab308"
-          d="M2048 1088H250l787 787l-90 90L6 1024L947 83l90 90l-787 787h1798z"
-        />
-      </svg>
-
-      <span style="margin-left: 10px"> Atras </span>
-    </ion-button>
-
-    }
   </div>
   @if (receta) {
   <ion-card>

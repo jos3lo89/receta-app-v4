@@ -17,4 +17,8 @@ export default [
     path: 'categorias',
     loadComponent: () => import('../pages/categorias/categorias.page'),
   },
+  {
+    path: 'busqueda',
+    loadComponent: () => import('../pages/busqueda/busqueda.page'),
+  },
 ] as Routes;
